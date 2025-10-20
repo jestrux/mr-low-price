@@ -124,7 +124,18 @@ function App() {
   const brandOrder = Object.keys(phonesByBrand)
 
   const scrollToBrand = (brand: string) => {
-    const element = document.getElementById(`brand-${brand}`)
+    // Find the index of the current brand
+    const brandIndex = brandOrder.indexOf(brand)
+
+    // If it's the first brand, scroll to top
+    if (brandIndex === 0) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
+    // Get the previous brand and scroll to its last item
+    const previousBrand = brandOrder[brandIndex - 1]
+    const element = document.getElementById(`brand-${previousBrand}-last`)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
@@ -225,7 +236,7 @@ function App() {
             {phonesByBrand[brand].map((phone, index) => (
               <div
                 key={index}
-                id={index === 0 ? `brand-${brand}` : undefined}
+                id={index === phonesByBrand[brand].length - 1 ? `brand-${brand}-last` : undefined}
                 className="flex items-center justify-between px-4 py-4 border-b border-border transition-colors hover:bg-muted/50"
               >
                 <div className="flex-1 min-w-0">
