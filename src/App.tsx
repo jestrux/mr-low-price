@@ -105,6 +105,10 @@ function App() {
     return new Intl.NumberFormat('en-TZ').format(price)
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   // Group phones by brand to add section headers
   const phonesByBrand = useMemo(() => {
     const groups: { [key: string]: typeof phoneData } = {}
@@ -119,17 +123,24 @@ function App() {
 
   const brandOrder = Object.keys(phonesByBrand)
 
+  const scrollToBrand = (brand: string) => {
+    const element = document.getElementById(`brand-${brand}`)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-canvas">
       {/* Mobile header */}
-      <header className="md:hidden bg-white px-4 pt-4">
-        <h1 className="text-2xl font-semibold">Massawe Mr. Low Price</h1>
+      <header className="md:hidden bg-background px-4 pt-4">
+        <h1 className="text-2xl font-semibold text-foreground">Massawe Mr. Low Price</h1>
       </header>
 
       {/* Desktop sticky header */}
-      <header className="hidden md:block sticky top-0 z-20 bg-white border-b border-gray-200">
+      <header className="hidden md:block sticky top-0 z-20 bg-background border-b border-border">
         <div className="max-w-4xl mx-auto px-4 py-6 flex items-center justify-between">
-          <h1 className="text-3xl font-semibold">Massawe Mr. Low Price</h1>
+          <h1 className="text-3xl font-semibold text-foreground">Massawe Mr. Low Price</h1>
 
           {/* Desktop filters */}
           <div className="flex gap-6">
@@ -137,18 +148,18 @@ function App() {
               onClick={() => setSelectedFilter('vioo')}
               className={`text-lg font-medium whitespace-nowrap transition-colors ${
                 selectedFilter === 'vioo'
-                  ? 'text-black'
-                  : 'text-gray-400 hover:text-gray-600'
+                  ? 'text-primary'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
-              Vioo
+              Vioo vya Simu
             </button>
             <button
               onClick={() => setSelectedFilter('system-charge')}
               className={`text-lg font-medium whitespace-nowrap transition-colors ${
                 selectedFilter === 'system-charge'
-                  ? 'text-black'
-                  : 'text-gray-400 hover:text-gray-600'
+                  ? 'text-primary'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               System Charge
@@ -158,48 +169,71 @@ function App() {
       </header>
 
       {/* Mobile filters */}
-      <div className="md:hidden sticky top-0 bg-white border-b border-gray-200 px-4 py-4 z-20 flex gap-6 overflow-x-auto">
+      <div className="md:hidden sticky top-0 bg-background border-b border-border px-4 py-4 z-20 flex gap-6 overflow-x-auto">
         <button
           onClick={() => setSelectedFilter('vioo')}
           className={`text-lg font-medium whitespace-nowrap transition-colors ${
             selectedFilter === 'vioo'
-              ? 'text-black'
-              : 'text-gray-400 hover:text-gray-600'
+              ? 'text-primary'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
         >
-          Vioo
+          Vioo vya Simu
         </button>
         <button
           onClick={() => setSelectedFilter('system-charge')}
           className={`text-lg font-medium whitespace-nowrap transition-colors ${
             selectedFilter === 'system-charge'
-              ? 'text-black'
-              : 'text-gray-400 hover:text-gray-600'
+              ? 'text-primary'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
         >
           System Charge
         </button>
       </div>
 
-      <div className="max-w-4xl mx-auto bg-white">
+      {/* Quick navigation cards */}
+      <div className="max-w-4xl mx-auto bg-card">
+        <div className="px-4 py-3 bg-muted border-b border-border">
+          <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+            Chagua Aina
+          </h2>
+        </div>
+        <div className="px-4 py-4 bg-canvas">
+          <div className="grid grid-cols-2 gap-3">
+            {brandOrder.map((brand) => (
+              <button
+                key={brand}
+                onClick={() => scrollToBrand(brand)}
+                className="px-6 py-5 bg-card border border-border rounded-2xl text-left hover:bg-muted/30 transition-colors"
+              >
+                <span className="text-base font-semibold text-card-foreground capitalize">{brand.toLowerCase()}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto bg-card pb-24 md:pb-32">
         {brandOrder.map((brand) => (
           <div key={brand}>
-            <div className="sticky top-[57px] md:top-[85px] px-4 py-3 bg-gray-50 border-b border-gray-200 z-10">
-              <h2 className="text-sm font-semibold text-black uppercase tracking-wide">
+            <div className="sticky top-[57px] md:top-[85px] px-4 py-3 bg-muted border-b border-border z-10">
+              <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide">
                 {brand}
               </h2>
             </div>
             {phonesByBrand[brand].map((phone, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between px-4 py-4 border-b border-gray-200 transition-colors"
+                id={index === 0 ? `brand-${brand}` : undefined}
+                className="flex items-center justify-between px-4 py-4 border-b border-border transition-colors hover:bg-muted/50"
               >
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-base font-medium text-black">{phone.model}</h3>
+                  <h3 className="text-base font-medium text-card-foreground">{phone.model}</h3>
                 </div>
                 <div className="text-right ml-4 flex-shrink-0">
-                  <div className="text-lg font-semibold text-black">
-                    {/* <span className="text-[11px] text-gray-500 font-normal mr-1">TSH</span> */}
+                  <div className="text-lg font-semibold text-card-foreground">
+                    {/* <span className="text-[11px] text-muted-foreground font-normal mr-1">TSH</span> */}
                     {formatPrice(phone.price)}
                   </div>
                 </div>
@@ -208,6 +242,28 @@ function App() {
           </div>
         ))}
       </div>
+
+      {/* Scroll to top button */}
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-4 left-1/2 -translate-x-1/2 md:bottom-6 p-3 md:p-4 bg-primary text-primary-foreground rounded-full shadow-lg hover:opacity-90 transition-opacity z-50"
+        aria-label="Scroll to top"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="md:w-6 md:h-6"
+        >
+          <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+      </button>
     </div>
   )
 }

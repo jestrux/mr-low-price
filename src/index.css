@@ -1,3 +1,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --canvas: 0 0% 92%;
+        --background: 0 0% 100%;
+        --foreground: 0 0% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 3.9%;
+        --primary: 208 100% 8.82%; /* #01152D */
+        --primary-foreground: 0 0% 100%;
+        --secondary: 0 0% 96.1%;
+        --secondary-foreground: 0 0% 9%;
+        --muted: 0 0% 96.1%;
+        --muted-foreground: 0 0% 45.1%;
+        --accent: 0 0% 96.1%;
+        --accent-foreground: 0 0% 9%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --ring: 208 100% 8.82%; /* #01152D */
+        --radius: 0.5rem;
+        --input: 0 0% 89.8%;
+        --border: 0 0% 89.8%;
+        --stroke: 0 0% 89.8%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --background: 0 0% 3.9%;
+            --canvas: 0 0% 3.9%;
+            --foreground: 0 0% 98%;
+            --card: 0 0% 0%; /* Pure black for content */
+            --card-foreground: 0 0% 98%;
+            --popover: 0 0% 3.9%;
+            --popover-foreground: 0 0% 98%;
+            --primary: 0 0% 98%; /* White for dark mode */
+            --primary-foreground: 0 0% 13%;
+            --secondary: 0 0% 14.9%;
+            --secondary-foreground: 0 0% 98%;
+            --muted: 0 0% 13%; /* Dark gray for brand headings */
+            --muted-foreground: 0 0% 63.9%;
+            --accent: 0 0% 14.9%;
+            --accent-foreground: 0 0% 98%;
+            --destructive: 0 40% 54%;
+            --destructive-foreground: 0 0% 98%;
+            --ring: 0 0% 83.1%;
+            --input: 0 0% 28%;
+            --border: 0 0% 20%; /* Darker borders */
+            --stroke: 0 0% 20%;
+        }
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
