@@ -11,7 +11,7 @@
         --card-foreground: 0 0% 3.9%;
         --popover: 0 0% 100%;
         --popover-foreground: 0 0% 3.9%;
-        --primary: 208 100% 8.82%; /* #01152D */
+        --primary: 209 79% 29%; /* #0f4a82 */
         --primary-foreground: 0 0% 100%;
         --secondary: 0 0% 96.1%;
         --secondary-foreground: 0 0% 9%;
@@ -33,12 +33,12 @@
             --background: 0 0% 3.9%;
             --canvas: 0 0% 3.9%;
             --foreground: 0 0% 98%;
-            --card: 0 0% 0%; /* Pure black for content */
+            --card: 0 0% 16%; /* Lighter than muted */
             --card-foreground: 0 0% 98%;
             --popover: 0 0% 3.9%;
             --popover-foreground: 0 0% 98%;
-            --primary: 0 0% 98%; /* White for dark mode */
-            --primary-foreground: 0 0% 13%;
+            --primary: 209 50% 46%; /* #3c77af */
+            --primary-foreground: 0 0% 98%;
             --secondary: 0 0% 14.9%;
             --secondary-foreground: 0 0% 98%;
             --muted: 0 0% 13%; /* Dark gray for brand headings */
