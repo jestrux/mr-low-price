@@ -4,13 +4,13 @@ import { paymentMethods } from "../data/paymentMethods";
 function HowToPay() {
 	return (
 		<div className="pb-24 md:pb-32 max-w-4xl mx-auto px-4">
-			<div className="mt-6">
+			<div className="mt-4">
 				<p className="text-lg text-foreground opacity-70">
 					Chagua njia yoyote kati ya hizi hapa chini kulipa oda yako
 				</p>
 			</div>
 
-			<div className="mt-6 grid gap-6 md:grid-cols-2">
+			<div className="mt-4 grid gap-6 md:grid-cols-2">
 				{paymentMethods.map((method, index) => (
 					<div
 						key={index}
@@ -29,8 +29,8 @@ function HowToPay() {
 								) && (
 									<img
 										className="h-10"
-										src={`/img/payment-options/${method.logo}.png`}
-										alt=""
+										src={method.logoUrl}
+										alt={method.title}
 									/>
 								)}
 								{/* {method.logo === "tigo" && (
@@ -56,81 +56,28 @@ function HowToPay() {
 
 						{/* Content */}
 						<div className="px-4 py-4">
-							<CopyButton text={method.account.number}>
-								{(copied) => (
-									<div className="flex items-center justify-between gap-3 group">
-										<div className="space-y-3 flex-1">
-											<div>
-												<div className="text-sm font-medium text-muted-foreground mb-1">
-													Namba
-												</div>
-												<div className="text-base font-semibold text-foreground font-mono">
-													{method.account.number}
-												</div>
-											</div>
-
-											<div>
-												<div className="text-sm font-medium text-muted-foreground mb-1">
-													Jina
-												</div>
-												<div className="text-base font-semibold text-foreground">
-													{method.account.name}
-												</div>
-											</div>
-										</div>
-
-										{/* Trailing copy/copied indicator */}
-										<div className="flex-shrink-0 flex flex-col items-center gap-1 text-muted-foreground group-hover:text-foreground transition-colors">
-											{copied ? (
-												<>
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														width="20"
-														height="20"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														strokeWidth="2"
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														className="text-primary"
-													>
-														<polyline points="20 6 9 17 4 12"></polyline>
-													</svg>
-													<span className="text-xs text-primary">
-														copied
-													</span>
-												</>
-											) : (
-												<>
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														width="20"
-														height="20"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														strokeWidth="2"
-														strokeLinecap="round"
-														strokeLinejoin="round"
-													>
-														<rect
-															x="9"
-															y="9"
-															width="13"
-															height="13"
-															rx="2"
-															ry="2"
-														></rect>
-														<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-													</svg>
-													<span className="text-xs">copy</span>
-												</>
-											)}
-										</div>
+							<div className="space-y-3 flex-1">
+								<div>
+									<div className="text-sm font-medium text-muted-foreground mb-1">
+										Namba{" "}
 									</div>
-								)}
-							</CopyButton>
+									<div className="text-base font-semibold text-foreground font-mono">
+										{method.account.number}
+										<CopyButton
+											text={method.account.number}
+										/>
+									</div>
+								</div>
+
+								<div>
+									<div className="text-sm font-medium text-muted-foreground mb-1">
+										Jina
+									</div>
+									<div className="text-base font-semibold text-foreground">
+										{method.account.name}
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				))}

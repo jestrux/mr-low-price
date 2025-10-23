@@ -175,7 +175,7 @@ function Info() {
 											<div className="flex items-start gap-3">
 												<img
 													className="h-8 mt-1"
-													src={`/img/payment-options/${method.logo}.png`}
+													src={method.logoUrl}
 													alt={method.title}
 												/>
 												<div>
