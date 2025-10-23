@@ -69,8 +69,8 @@ const data = [
 		model: "11 Pro Max",
 		price: 85000,
 	},
-	{ type: "Vioo", brand: "iPhone", model: "12", price: null },
-	{ type: "Vioo", brand: "iPhone", model: "12 Pro", price: 6 },
+	// { type: "Vioo", brand: "iPhone", model: "12", price: null },
+	// { type: "Vioo", brand: "iPhone", model: "12 Pro", price: 6 },
 	{
 		type: "Vioo",
 		brand: "iPhone",
@@ -609,18 +609,18 @@ const data = [
 		model: "12 PIN",
 		price: 2000,
 	},
-	{
-		type: "Vioo",
-		brand: "Vioo Vidogo",
-		model: "MIC",
-		price: 70,
-	},
-	{
-		type: "Vioo",
-		brand: "Vioo Vidogo",
-		model: "System Charge",
-		price: 70,
-	},
+	// {
+	// 	type: "Vioo",
+	// 	brand: "Vioo Vidogo",
+	// 	model: "MIC",
+	// 	price: 70,
+	// },
+	// {
+	// 	type: "Vioo",
+	// 	brand: "Vioo Vidogo",
+	// 	model: "System Charge",
+	// 	price: 70,
+	// },
 
 	{
 		type: "Vioo",
