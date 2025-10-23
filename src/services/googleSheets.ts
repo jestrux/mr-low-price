@@ -72,47 +72,6 @@ async function fetchAllSheetTabs(spreadsheetId: string): Promise<SheetTab[]> {
 		return json.tabs;
 	} catch (error) {}
 	return [];
-
-	try {
-		// Use gviz API to get sheet metadata
-		// This endpoint returns information about all sheets in the spreadsheet
-		const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json`;
-
-		const response = await fetch(url);
-		const text = await response.text();
-		const data = parseVisualizationResponse(text);
-
-		// The first request to gviz without gid gives us access to the first sheet
-		// To get all sheets, we need to use the Sheets API or parse from HTML
-		// For now, we'll use a workaround: try multiple gids and see which ones work
-
-		// Alternative: Extract from the spreadsheet's HTML page
-		const htmlUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
-		const htmlResponse = await fetch(htmlUrl);
-		const html = await htmlResponse.text();
-
-		// Extract sheet information from HTML
-		// Look for sheet data in the page (this is a bit hacky but works without API key)
-		const sheetMatches = html.matchAll(
-			/"sheetId":(\d+),"title":"([^"]+)"/g
-		);
-		const tabs: SheetTab[] = [];
-
-		for (const match of sheetMatches) {
-			tabs.push({
-				gid: match[1],
-				name: match[2],
-			});
-		}
-
-		return tabs;
-	} catch (error) {
-		console.error(
-			`Failed to fetch sheet tabs for ${spreadsheetId}:`,
-			error
-		);
-		return [];
-	}
 }
 
 // Fetch data from a specific sheet tab
