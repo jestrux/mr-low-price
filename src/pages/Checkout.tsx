@@ -1,12 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useApp } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 
 function Checkout() {
 	const { cart, formatPrice } = useApp();
 	const navigate = useNavigate();
-	const [location, setLocation] = useState("");
-	const [phoneNumber, setPhoneNumber] = useState("");
+	const [location, setLocation] = useState(() => {
+		return sessionStorage.getItem("checkout_location") || "";
+	});
+	const [phoneNumber, setPhoneNumber] = useState(() => {
+		return sessionStorage.getItem("checkout_phone") || "";
+	});
+
+	// Save to sessionStorage whenever location or phoneNumber changes
+	useEffect(() => {
+		sessionStorage.setItem("checkout_location", location);
+	}, [location]);
+
+	useEffect(() => {
+		sessionStorage.setItem("checkout_phone", phoneNumber);
+	}, [phoneNumber]);
 
 	// Group cart items by type
 	const groupedByType = cart.reduce((acc, item) => {
