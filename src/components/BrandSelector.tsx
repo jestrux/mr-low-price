@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useApp } from "../context/AppContext";
 
 interface BrandSelectorProps {
@@ -5,8 +6,13 @@ interface BrandSelectorProps {
 }
 
 function BrandSelector({ onBrandClick }: BrandSelectorProps) {
-	const { priceChecker } = useApp();
-	const brands = priceChecker.brands;
+	const { phoneData } = useApp();
+	const brands = useMemo(() => {
+		const uniqueBrands = new Set<string>();
+		phoneData.forEach((phone) => uniqueBrands.add(phone.brand));
+		return Array.from(uniqueBrands).sort();
+	}, [phoneData]);
+
 	return (
 		<div className="max-w-4xl mx-auto bg-card">
 			<div className="px-4 py-3 bg-muted border-b border-border">
