@@ -19,7 +19,7 @@ function PageHeader() {
 
 	// Get page title based on route
 	const getPageTitle = () => {
-		if (location.pathname === "/order") return "Oda";
+		if (location.pathname === "/order") return "Oda yako";
 		if (location.pathname === "/checkout") return "Kamilisha Oda";
 		if (location.pathname === "/how-to-pay") return "Jinsi ya Kulipa";
 		if (location.pathname === "/info") return "Taarifa";

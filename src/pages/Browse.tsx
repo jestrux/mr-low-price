@@ -1,6 +1,6 @@
 import { useMemo, useEffect } from "react";
 import { useApp, Phone } from "../context/AppContext";
-import PriceChecker from "../components/PriceChecker";
+// import PriceChecker from "../components/PriceChecker";
 // import BrandSelector from "../components/BrandSelector";
 import { useNavigate, useParams } from "react-router";
 
@@ -81,9 +81,7 @@ function Browse() {
 
 	return (
 		<div className="max-w-4xl mx-auto pb-24 md:pb-32">
-			{/* PriceChecker filtered by current type */}
-			<PriceChecker type={type} />
-
+			{/* <PriceChecker type={type} /> */}
 			{/* <BrandSelector onBrandClick={scrollToBrand} /> */}
 
 			<div className="">
