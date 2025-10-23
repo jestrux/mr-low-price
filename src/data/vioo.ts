@@ -1,4 +1,6 @@
-const data = [
+import { Product } from "./phones";
+
+const data: Product[] = [
 	{ type: "Vioo", brand: "Redmin", model: "7A", price: 17000 },
 	{ type: "Vioo", brand: "Redmin", model: "8A", price: 15000 },
 	{ type: "Vioo", brand: "Redmin", model: "9A", price: 17000 },

@@ -1,4 +1,12 @@
-const data = [
+export interface Product {
+	type: string;
+	brand: string;
+	model: string;
+	price: number;
+	tags?: string[];
+}
+
+const data: Product[] = [
 	{ type: "Simu", brand: "Huawei", model: "Honor 9S", price: 120000 },
 	{ type: "Simu", brand: "Huawei", model: "Nova 3i", price: 131000 },
 	{

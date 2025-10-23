@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useApp, Phone } from "../context/AppContext";
 // import PriceChecker from "../components/PriceChecker";
 // import BrandSelector from "../components/BrandSelector";
@@ -15,6 +15,7 @@ function Browse() {
 		isItemSelected,
 		clearCart,
 	} = useApp();
+	const [selectedTag, setSelectedTag] = useState<string>("All");
 
 	// Redirect to /browse/Simu if no type specified (root path)
 	useEffect(() => {
@@ -23,11 +24,35 @@ function Browse() {
 		}
 	}, [type, navigate]);
 
-	// Filter data by type from URL
+	// Get all unique tags from products of current type
+	const availableTags = useMemo(() => {
+		if (!type) return [];
+
+		const tagsSet = new Set<string>();
+		allPhoneData
+			.filter((phone) => phone.type === type)
+			.forEach((phone) => {
+				phone.tags?.forEach((tag) => tagsSet.add(tag));
+			});
+
+		return Array.from(tagsSet).sort();
+	}, [allPhoneData, type]);
+
+	// Filter data by type from URL and selected tag
 	const phoneData = useMemo(() => {
 		if (!type) return [];
-		return allPhoneData.filter((phone) => phone.type === type);
-	}, [allPhoneData, type]);
+
+		let filtered = allPhoneData.filter((phone) => phone.type === type);
+
+		// Apply tag filter
+		if (selectedTag !== "All") {
+			filtered = filtered.filter((phone) =>
+				phone.tags?.includes(selectedTag)
+			);
+		}
+
+		return filtered;
+	}, [allPhoneData, type, selectedTag]);
 
 	// Selection mode is active when cart has items
 	const isSelectionMode = cart.length > 0;
@@ -84,6 +109,41 @@ function Browse() {
 			{/* <PriceChecker type={type} /> */}
 			{/* <BrandSelector onBrandClick={scrollToBrand} /> */}
 
+			{/* Tag Filter Chips - only show if there are tags */}
+			{availableTags.length > 0 && (
+				<div className="px-4 pt-3 pb-3">
+					<div className="flex gap-2 overflow-x-auto">
+						{/* <button
+							onClick={() => setSelectedTag("All")}
+							className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+								selectedTag === "All"
+									? "bg-primary text-primary-foreground"
+									: "bg-muted text-foreground hover:bg-muted/80"
+							}`}
+						>
+							Zote
+						</button> */}
+						{availableTags.map((tag) => (
+							<button
+								key={tag}
+								onClick={() =>
+									setSelectedTag((activeTag) =>
+										activeTag == tag ? "All" : tag
+									)
+								}
+								className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+									selectedTag === tag
+										? "bg-primary text-primary-foreground"
+										: "bg-muted text-foreground hover:bg-muted/80"
+								}`}
+							>
+								{tag}
+							</button>
+						))}
+					</div>
+				</div>
+			)}
+
 			<div className="">
 				{brandOrder.map((brand) => (
 					<div key={brand}>
@@ -136,9 +196,29 @@ function Browse() {
 												)}
 											</div>
 										)}
-										<h3 className="text-base font-medium text-card-foreground">
-											{phone.model}
-										</h3>
+										<div className="flex-1 min-w-0">
+											<h3 className="text-base font-medium text-card-foreground">
+												{phone.model}
+												{/* Tag badges */}
+												{phone.tags &&
+													phone.tags.length > 0 && (
+														<div className="inline-flex gap-1 ml-2">
+															{phone.tags.map(
+																(tag) => (
+																	<span
+																		key={
+																			tag
+																		}
+																		className="px-2 py-0.5 text-xs font-medium rounded-full bg-primary/10 text-primary"
+																	>
+																		{tag}
+																	</span>
+																)
+															)}
+														</div>
+													)}
+											</h3>
+										</div>
 									</div>
 									<div className="text-right ml-4 flex-shrink-0">
 										<div className="text-lg font-semibold text-card-foreground">
