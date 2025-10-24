@@ -20,9 +20,8 @@ function PriceChecker({ type, selectedPhone }: PriceCheckerProps) {
 
 	// Initialize internal type when no type prop is provided
 	useEffect(() => {
-		if (!type && availableTypes.length > 0 && !internalType) {
+		if (!type && availableTypes.length > 0 && !internalType)
 			setInternalType(availableTypes[0]);
-		}
 	}, [type, availableTypes, internalType]);
 
 	// Use either the prop type or internal type
@@ -49,7 +48,6 @@ function PriceChecker({ type, selectedPhone }: PriceCheckerProps) {
 
 	// Find selected phone (use prop if provided, otherwise find from selections)
 	const displayPhone = useMemo(() => {
-		if (selectedPhone) return selectedPhone;
 		if (!selectedBrand || !selectedModel) return null;
 		return (
 			phoneData.find(
@@ -58,20 +56,13 @@ function PriceChecker({ type, selectedPhone }: PriceCheckerProps) {
 					phone.model === selectedModel
 			) || null
 		);
-	}, [selectedPhone, selectedBrand, selectedModel, phoneData]);
+	}, [selectedBrand, selectedModel, phoneData]);
 
 	// Auto-select first brand and model when type is not provided as prop and no selectedPhone
 	useEffect(() => {
-		if (
-			!selectedPhone &&
-			!type &&
-			activeType &&
-			brands.length > 0 &&
-			!selectedBrand
-		) {
+		if (activeType && brands.length > 0 && !selectedBrand)
 			setSelectedBrand(brands[0]);
-		}
-	}, [selectedPhone, type, activeType, brands, selectedBrand]);
+	}, [activeType, brands, selectedBrand]);
 
 	// Set first model when brand changes
 	useEffect(() => {
@@ -79,6 +70,14 @@ function PriceChecker({ type, selectedPhone }: PriceCheckerProps) {
 			setSelectedModel(models[0].model);
 		}
 	}, [models]);
+
+	useEffect(() => {
+		if (selectedPhone) {
+			setInternalType(selectedPhone.type);
+			setSelectedModel(selectedPhone.model);
+			setSelectedBrand(selectedPhone.brand);
+		}
+	}, [selectedPhone]);
 
 	const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const newType = e.target.value;
@@ -103,20 +102,18 @@ function PriceChecker({ type, selectedPhone }: PriceCheckerProps) {
 					<h2 className="text-sm font-semibold text-foreground uppercase tracking-wide">
 						Tafuta Chap
 					</h2>
-					{/* Show type selector only when type prop is not provided */}
-					{!type && (
-						<select
-							value={internalType}
-							onChange={handleTypeChange}
-							className="py-1 px-2 bg-background text-foreground text-xs border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer"
-						>
-							{availableTypes.map((t) => (
-								<option key={t} value={t}>
-									{t}
-								</option>
-							))}
-						</select>
-					)}
+
+					<select
+						value={internalType}
+						onChange={handleTypeChange}
+						className="py-1 px-2 bg-background text-foreground text-xs border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer"
+					>
+						{availableTypes.map((t) => (
+							<option key={t} value={t}>
+								{t}
+							</option>
+						))}
+					</select>
 				</div>
 			</div>
 			<div className="px-4 md:px-0 py-4">

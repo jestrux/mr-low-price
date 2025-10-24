@@ -79,10 +79,7 @@ function Search() {
 				<>
 					{selectedPhone && (
 						<div>
-							<PriceChecker
-								type={selectedPhone.type}
-								selectedPhone={selectedPhone}
-							/>
+							<PriceChecker selectedPhone={selectedPhone} />
 						</div>
 					)}
 
@@ -147,7 +144,6 @@ function Search() {
 						<PriceChecker
 							{...(selectedPhone
 								? {
-										type: selectedPhone.type,
 										selectedPhone: selectedPhone,
 								  }
 								: {})}
