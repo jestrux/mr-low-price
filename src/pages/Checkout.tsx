@@ -3,7 +3,7 @@ import { useApp } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 
 function Checkout() {
-	const { cart, formatPrice } = useApp();
+	const { cart, formatPrice, clearCart } = useApp();
 	const navigate = useNavigate();
 	const [location, setLocation] = useState(() => {
 		return sessionStorage.getItem("checkout_location") || "";
@@ -93,6 +93,8 @@ function Checkout() {
 			/[^0-9]/g,
 			""
 		)}?text=${encodeURIComponent(message)}`;
+
+		clearCart();
 
 		window.open(whatsappUrl, "_blank");
 	};

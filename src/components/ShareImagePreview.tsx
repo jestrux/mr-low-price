@@ -80,7 +80,7 @@ function ShareImagePreview({
 							>
 								{/* Header */}
 								{heading && (
-									<div className=" text-center py-2">
+									<div className="text-black text-center py-2">
 										<h2 className="text-lg font-bold">
 											{heading}
 										</h2>
@@ -164,7 +164,7 @@ function ShareImagePreview({
 		<div className="bg-white rounded-lg overflow-hidden shadow-sm">
 			{/* Header */}
 			{showHeader && (
-				<div className=" text-center py-2">
+				<div className="text-black text-center py-2">
 					<h2 className="text-lg font-bold">{headerText}</h2>
 				</div>
 			)}
