@@ -43,15 +43,41 @@ function Checkout() {
 
 	const handleSendOrder = () => {
 		const salutation = "Mambo vipi, naomba niwekee order ya hivi vitu.";
-		const orderItems = cart
-			.map((item) => {
-				const itemTotal = item.phone.price * item.quantity;
-				return `*${item.phone.brand}* - ${item.phone.model} (x${
-					item.quantity
-				}) - ${formatPrice(itemTotal)}`;
+
+		// Group cart items by type
+		const cartByType = cart.reduce((acc, item) => {
+			const type = item.phone.type;
+			if (!acc[type]) {
+				acc[type] = [];
+			}
+			acc[type].push(item);
+			return acc;
+		}, {} as Record<string, typeof cart>);
+
+		// Build order message grouped by type
+		const orderSections = Object.keys(cartByType)
+			.sort()
+			.map((type) => {
+				const items = cartByType[type];
+				const typeTotal = items.reduce(
+					(sum, item) => sum + item.phone.price * item.quantity,
+					0
+				);
+
+				const itemsList = items
+					.map((item) => {
+						const itemTotal = item.phone.price * item.quantity;
+						return `*${item.phone.brand}* - ${item.phone.model} (x${
+							item.quantity
+						}) - ${formatPrice(itemTotal)}`;
+					})
+					.join("\n");
+
+				return `*${type}*\n${itemsList}\n_Jumla ${type}: ${formatPrice(typeTotal)}_`;
 			})
-			.join("\n");
-		const summary = `\n*Jumla:* ${formatPrice(total)}`;
+			.join("\n\n");
+
+		const summary = `\n*Jumla ya Jumla:* ${formatPrice(total)}`;
 
 		let customerInfo = "";
 		if (location || phoneNumber) {
@@ -60,7 +86,7 @@ function Checkout() {
 			if (phoneNumber) customerInfo += `\nNamba ya Simu: ${phoneNumber}`;
 		}
 
-		const message = `${salutation}\n\n${orderItems}\n\n${summary}${customerInfo}`;
+		const message = `${salutation}\n\n${orderSections}${summary}${customerInfo}`;
 		const whatsappNumber = "+255719796574";
 		const whatsappUrl = `https://wa.me/${whatsappNumber.replace(
 			/[^0-9]/g,

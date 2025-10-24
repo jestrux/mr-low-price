@@ -17,18 +17,37 @@ function PageHeader() {
 	// Check if we're on search route
 	const isSearchRoute = location.pathname === "/search";
 
+	// Check if we're on share/confirm route
+	const isShareConfirmRoute = location.pathname === "/share/confirm";
+
+	// Get current mode from query params for share/confirm
+	const currentMode = searchParams.get("mode") || "image";
+
+	// Toggle mode
+	const toggleMode = () => {
+		const newMode = currentMode === "image" ? "text" : "image";
+		setSearchParams({ mode: newMode });
+	};
+
 	// Get page title based on route
 	const getPageTitle = () => {
 		if (location.pathname === "/order") return "Oda yako";
-		if (location.pathname === "/checkout") return "Kamilisha Oda";
-		if (location.pathname === "/how-to-pay") return "Jinsi ya Kulipa";
+		if (location.pathname === "/checkout") return "Kamilisha oda";
+		if (location.pathname === "/how-to-pay") return "Jinsi ya kulipa";
 		if (location.pathname === "/info") return "Taarifa";
+		if (location.pathname === "/share") return "Tuma bei za bidhaa";
+		if (location.pathname === "/share/confirm") return "Tuma bei za bidhaa";
+		if (location.pathname === "/custom-share") return "Chagua bidhaa za kutuma";
 
 		return "Mr. Low Price";
 	};
 
 	const handleBack = () => {
-		if (["/how-to-pay", "/checkout"].includes(location.pathname))
+		if (
+			["/how-to-pay", "/checkout", "/share/confirm"].includes(
+				location.pathname
+			)
+		)
 			return navigate(-1);
 
 		navigate(window.lastBrowseRoute || "/browse/Simu");
@@ -96,6 +115,41 @@ function PageHeader() {
 								</svg>
 							</Link>
 
+							{/* Share icon */}
+							<Link
+								to="/share"
+								className="size-9 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+								aria-label="Share"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								>
+									<circle cx="18" cy="5" r="3"></circle>
+									<circle cx="6" cy="12" r="3"></circle>
+									<circle cx="18" cy="19" r="3"></circle>
+									<line
+										x1="8.59"
+										y1="13.51"
+										x2="15.42"
+										y2="17.49"
+									></line>
+									<line
+										x1="15.41"
+										y1="6.51"
+										x2="8.59"
+										y2="10.49"
+									></line>
+								</svg>
+							</Link>
+
 							{/* Info icon */}
 							<Link
 								to="/info"
@@ -158,6 +212,41 @@ function PageHeader() {
 								>
 									<circle cx="11" cy="11" r="8"></circle>
 									<path d="m21 21-4.35-4.35"></path>
+								</svg>
+							</Link>
+
+							{/* Share icon */}
+							<Link
+								to="/share"
+								className="size-9 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+								aria-label="Share"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								>
+									<circle cx="18" cy="5" r="3"></circle>
+									<circle cx="6" cy="12" r="3"></circle>
+									<circle cx="18" cy="19" r="3"></circle>
+									<line
+										x1="8.59"
+										y1="13.51"
+										x2="15.42"
+										y2="17.49"
+									></line>
+									<line
+										x1="15.41"
+										y1="6.51"
+										x2="8.59"
+										y2="10.49"
+									></line>
 								</svg>
 							</Link>
 
@@ -300,6 +389,61 @@ function PageHeader() {
 				<h1 className="text-xl md:text-2xl font-semibold text-foreground">
 					{pageTitle}
 				</h1>
+
+				{/* Mode switcher for share/confirm */}
+				{isShareConfirmRoute && (
+					<button
+						onClick={toggleMode}
+						className="ml-auto size-9 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+						aria-label={`Switch to ${
+							currentMode === "image" ? "text" : "image"
+						} mode`}
+						style={{ display: "none" }}
+					>
+						{currentMode === "image" ? (
+							// Show text icon when in image mode (to switch to text)
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							>
+								<path d="M17 6.1H3"></path>
+								<path d="M21 12.1H3"></path>
+								<path d="M15.1 18H3"></path>
+							</svg>
+						) : (
+							// Show image icon when in text mode (to switch to image)
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							>
+								<rect
+									x="3"
+									y="3"
+									width="18"
+									height="18"
+									rx="2"
+									ry="2"
+								></rect>
+								<circle cx="8.5" cy="8.5" r="1.5"></circle>
+								<polyline points="21 15 16 10 5 21"></polyline>
+							</svg>
+						)}
+					</button>
+				)}
 			</div>
 		</header>
 	);

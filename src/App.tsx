@@ -6,6 +6,9 @@ import Checkout from "./pages/Checkout";
 import HowToPay from "./pages/HowToPay";
 import Info from "./pages/Info";
 import Search from "./pages/Search";
+import Share from "./pages/Share";
+import ShareConfirm from "./pages/ShareConfirm";
+import CustomShare from "./pages/CustomShare";
 import PageHeader from "./components/PageHeader";
 
 // Declare global window property for TypeScript
@@ -44,6 +47,9 @@ function App() {
 				<Route path="/how-to-pay" element={<HowToPay />} />
 				<Route path="/info" element={<Info />} />
 				<Route path="/search" element={<Search />} />
+				<Route path="/share" element={<Share />} />
+				<Route path="/share/confirm" element={<ShareConfirm />} />
+				<Route path="/custom-share" element={<CustomShare />} />
 			</Routes>
 		</div>
 	);
