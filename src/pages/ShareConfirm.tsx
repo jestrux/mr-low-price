@@ -32,7 +32,8 @@ function ShareConfirm() {
 		COLOR_PALETTE[0]
 	);
 	const [striped, setStriped] = useState(true);
-	const [separateBrands, setSeparateBrands] = useState(allBrands.length > 1);
+	const [separateBrands, setSeparateBrands] = useState(false);
+	// const [separateBrands, setSeparateBrands] = useState(allBrands.length > 1);
 	const [, setIsSending] = useState(false);
 	const [isSendingBrand, setIsSendingBrand] = useState<string>("");
 

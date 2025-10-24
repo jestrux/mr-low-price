@@ -114,7 +114,9 @@ function Share() {
 					</div> */}
 					<div className="bg-background border border-border rounded-lg overflow-hidden">
 						<button
-							onClick={() => handleQuickShare("all", selectedType)}
+							onClick={() =>
+								handleQuickShare("all", selectedType)
+							}
 							className="w-full p-4 hover:bg-muted/30 transition-colors text-left"
 						>
 							<div className="flex items-center justify-between gap-3">
@@ -125,7 +127,9 @@ function Share() {
 									</h3>
 									<p className="text-sm text-muted-foreground">
 										bidhaa {phonesInType.length} • Tsh.{" "}
-										{formatPrice(getTotalForGroup(phonesInType))}
+										{formatPrice(
+											getTotalForGroup(phonesInType)
+										)}
 									</p>
 								</div>
 								{chevronIcon}
@@ -150,7 +154,9 @@ function Share() {
 								return (
 									<button
 										key={brand}
-										onClick={() => handleQuickShare("brand", brand)}
+										onClick={() =>
+											handleQuickShare("brand", brand)
+										}
 										className="w-full p-4 hover:bg-muted/30 transition-colors text-left"
 									>
 										<div className="flex items-center justify-between gap-3">
@@ -159,8 +165,13 @@ function Share() {
 													{brand}
 												</h3>
 												<p className="text-sm text-muted-foreground">
-													bidhaa {brandPhones.length} • Tsh.{" "}
-													{formatPrice(getTotalForGroup(brandPhones))}
+													bidhaa {brandPhones.length}{" "}
+													• Tsh.{" "}
+													{formatPrice(
+														getTotalForGroup(
+															brandPhones
+														)
+													)}
 												</p>
 											</div>
 											{chevronIcon}
@@ -188,7 +199,9 @@ function Share() {
 								return (
 									<button
 										key={tag}
-										onClick={() => handleQuickShare("tag", tag)}
+										onClick={() =>
+											handleQuickShare("tag", tag)
+										}
 										className="w-full p-4 hover:bg-muted/30 transition-colors text-left"
 									>
 										<div className="flex items-center justify-between gap-3">
@@ -197,8 +210,13 @@ function Share() {
 													{tag}
 												</h3>
 												<p className="text-sm text-muted-foreground">
-													bidhaa {tagPhones.length} • Tsh.{" "}
-													{formatPrice(getTotalForGroup(tagPhones))}
+													bidhaa {tagPhones.length} •
+													Tsh.{" "}
+													{formatPrice(
+														getTotalForGroup(
+															tagPhones
+														)
+													)}
 												</p>
 											</div>
 											{chevronIcon}
@@ -211,7 +229,7 @@ function Share() {
 				)}
 
 				{/* Custom Share Card */}
-				<div>
+				<div className="hidden">
 					<div className="block text-sm font-medium text-foreground mb-0.5 ml-px">
 						Chagua mwenyewe
 					</div>

@@ -59,10 +59,10 @@ function Checkout() {
 			.sort()
 			.map((type) => {
 				const items = cartByType[type];
-				const typeTotal = items.reduce(
-					(sum, item) => sum + item.phone.price * item.quantity,
-					0
-				);
+				// const typeTotal = items.reduce(
+				// 	(sum, item) => sum + item.phone.price * item.quantity,
+				// 	0
+				// );
 
 				const itemsList = items
 					.map((item) => {
@@ -73,11 +73,12 @@ function Checkout() {
 					})
 					.join("\n");
 
-				return `*${type}*\n${itemsList}\n_Jumla ${type}: ${formatPrice(typeTotal)}_`;
+				return `*${type}*\n${itemsList}\n`;
+				// return `*${type}*\n${itemsList}\n_Jumla ${type}: ${formatPrice(typeTotal)}_`;
 			})
 			.join("\n\n");
 
-		const summary = `\n*Jumla ya Jumla:* ${formatPrice(total)}`;
+		const summary = `\n*Jumla:* ${formatPrice(total)}`;
 
 		let customerInfo = "";
 		if (location || phoneNumber) {
